@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جدول السكاشن – المستوى الثاني 2026/2027 | Youssef Jo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EDF3; --surface:#FFFFFF; --ink:#16204F; --muted:#5A6386; --line:#CBD2E1;
+  --brand:#23307A; --gold:#E3B23C; --warn:#B4231B; --warn-bg:#FDECEA;
+  --db:#1B7F79; --cn:#2F5FD0; --oop:#8A3FB8; --os:#C2601C; --prog:#2E8540; --ds:#B0305E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1330; --surface:#171E45; --ink:#E7EAF7; --muted:#9AA3C8; --line:#2C3566;
+    --brand:#9FB0FF; --gold:#F0C45A; --warn:#FF8A80; --warn-bg:#3A1A22;
+    --db:#4FC2BA; --cn:#7FA2FF; --oop:#C88BF0; --os:#F2A060; --prog:#6FCB82; --ds:#F07AA5;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1330; --surface:#171E45; --ink:#E7EAF7; --muted:#9AA3C8; --line:#2C3566;
+  --brand:#9FB0FF; --gold:#F0C45A; --warn:#FF8A80; --warn-bg:#3A1A22;
+  --db:#4FC2BA; --cn:#7FA2FF; --oop:#C88BF0; --os:#F2A060; --prog:#6FCB82; --ds:#F07AA5;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Readex Pro",Tahoma,"Segoe UI",sans-serif;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 60px}
+header h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin:0 0 4px;color:var(--brand)}
+header p{margin:0;color:var(--muted);font-size:.95rem}
+
+.picker{margin:24px 0 20px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.grp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px}
+.grp h2{margin:0 0 8px;font-size:.9rem;font-weight:500;color:var(--muted)}
+.grp .nums{display:flex;flex-wrap:wrap;gap:6px}
+.num{appearance:none;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:600;font-size:1.05rem;
+  width:44px;height:44px;border-radius:10px;cursor:pointer}
+.num:hover{border-color:var(--brand)}
+.num[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface)}
+.num.flag{position:relative}
+.num.flag::after{content:"";position:absolute;top:4px;left:4px;width:7px;height:7px;border-radius:50%;background:var(--warn)}
+.num:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.bigsec{display:flex;align-items:baseline;gap:12px}
+.bigsec .n{font-size:clamp(3.2rem,8vw,4.6rem);font-weight:700;line-height:.9;color:var(--brand)}
+.bigsec .t{font-size:1.1rem;color:var(--muted)}
+.bigsec .t b{color:var(--ink);font-weight:600;display:block;font-size:1.25rem}
+.stats{color:var(--muted);font-size:.9rem;margin-top:2px}
+.btn{font:inherit;border:1.5px solid var(--brand);color:var(--brand);background:transparent;border-radius:10px;padding:8px 16px;cursor:pointer;font-weight:500}
+.actions{display:flex;gap:8px}
+#view{background:var(--bg);padding:4px}
+.btn:hover{background:var(--brand);color:var(--surface)}
+
+.notes{margin:0 0 14px;padding:0;list-style:none;display:grid;gap:8px}
+.notes li{background:var(--warn-bg);color:var(--warn);border-radius:10px;padding:10px 14px;font-size:.92rem;border-inline-start:4px solid var(--warn)}
+
+.tt-scroll{overflow-x:auto;border-radius:14px}
+table.tt{width:100%;min-width:860px;border-collapse:separate;border-spacing:6px;background:transparent}
+.tt th{font-weight:600;font-size:.95rem;color:var(--muted);padding:6px}
+.tt thead th{direction:ltr}
+.tt th.day{color:var(--ink);width:92px;background:var(--surface);border-radius:10px}
+.tt td{vertical-align:top;height:112px;width:22%;padding:0}
+.empty{height:100%;min-height:104px;border:1.5px dashed var(--line);border-radius:10px}
+.cell{display:flex;flex-direction:column;gap:6px;height:100%}
+
+.item{border-radius:10px;padding:9px 11px;font-size:.86rem;flex:1;display:flex;flex-direction:column;gap:2px}
+.item .sub{font-weight:600;font-size:.95rem;direction:ltr;text-align:right}
+.item .meta{direction:ltr;text-align:right;opacity:.92}
+.item .kind{font-size:.75rem;font-weight:500}
+.item.lec{color:#fff;background:var(--c)}
+.item.sec{background:var(--surface);border:2px solid var(--c);color:var(--ink)}
+.item.sec .kind{color:var(--c)}
+.item.bad{outline:3px solid var(--warn);outline-offset:1px}
+.item .flagtxt{color:var(--warn);font-weight:600;font-size:.78rem}
+.item.lec .flagtxt{color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .item.lec{color:#0E1330}}
+:root[data-theme="dark"] .item.lec{color:#0E1330}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;color:var(--muted);font-size:.88rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+.sw.o{background:transparent;border:2px solid var(--muted)}
+
+.credit{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+.credit p{margin:0 0 4px}
+.credit b{color:var(--brand);font-weight:700;font-size:1.1rem;direction:ltr;unicode-bidi:isolate}
+.credit .small{font-size:.82rem}
+.byline{direction:ltr;unicode-bidi:isolate;font-weight:600;color:var(--brand)}
+/* mobile: day list */
+.list{display:none}
+@media (max-width:760px){
+  .picker{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tt-scroll{display:none}
+  .list{display:grid;gap:14px}
+  .dayblk{background:var(--surface);border-radius:14px;padding:12px;border:1px solid var(--line)}
+  .dayblk h3{margin:0 0 8px;font-size:1.05rem}
+  .row{display:grid;grid-template-columns:62px 1fr;gap:8px;align-items:stretch;margin-top:6px}
+  .row .time{direction:ltr;font-weight:600;color:var(--muted);font-size:.85rem;padding-top:8px;text-align:center}
+  .dayblk .off{color:var(--muted);font-size:.9rem}
+}
+@media (prefers-reduced-motion:no-preference){
+  #view{animation:fade .25s ease}
+  @keyframes fade{from{opacity:.3}to{opacity:1}}
+}
+
+.print-head{display:none}
+@page{size:A4 landscape;margin:0}
+@media print{
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --bg:#fff; --surface:#fff; --ink:#111833; --muted:#555d7a; --line:#c9cfdd;
+    --brand:#23307A; --warn:#B4231B; --warn-bg:#FDF1F0;
+    --db:#1B7F79; --cn:#2F5FD0; --oop:#8A3FB8; --os:#C2601C; --prog:#2E8540; --ds:#B0305E;
+  }
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important}
+  html,body{background:#fff!important}
+  body{padding:9mm 10mm 8mm}
+  .wrap{max-width:none;padding:0}
+  header,.picker,.list,.credit,.head,.actions{display:none!important}
+  #view{padding:0;background:#fff}
+
+  .print-head{display:flex;justify-content:space-between;align-items:center;gap:10mm;
+    border-bottom:2px solid var(--brand);padding-bottom:3mm;margin-bottom:3mm}
+  .print-head .sec{display:flex;align-items:center;gap:4mm}
+  .print-head .sec .n{font-size:30pt;font-weight:700;color:var(--brand);line-height:1}
+  .print-head .sec .l{font-size:10pt;color:var(--muted);line-height:1.3}
+  .print-head .sec .l b{display:block;color:var(--ink);font-size:12pt}
+  .print-head .ttl{text-align:center;flex:1}
+  .print-head .ttl h2{margin:0;font-size:14pt;color:var(--ink)}
+  .print-head .ttl p{margin:1mm 0 0;font-size:9pt;color:var(--muted)}
+  .print-head .by{text-align:left;font-size:9pt;color:var(--muted);line-height:1.4}
+  .print-head .by b{display:block;font-size:12pt;color:var(--brand);direction:ltr}
+
+  .notes{gap:1.5mm;margin:0 0 2.5mm}
+  .notes li{font-size:8.5pt;padding:1.5mm 3mm;border-radius:2mm}
+
+  .tt-scroll{display:block!important;overflow:visible;border-radius:0}
+  table.tt{min-width:0;width:100%;table-layout:fixed;border-collapse:collapse;border-spacing:0}
+  .tt th,.tt td{border:0.6pt solid var(--line)}
+  .tt thead th{background:var(--brand);color:#fff;font-size:10pt;padding:1.6mm;height:auto}
+  .tt th.day{width:20mm;background:#EEF1F7;color:var(--ink);border-radius:0;font-size:10.5pt}
+  .tt tr{break-inside:avoid;page-break-inside:avoid}
+  .tt td{height:24mm;padding:1.2mm;vertical-align:middle}
+  .empty{border:0;min-height:0;height:auto}
+  .cell{gap:1.2mm;height:auto}
+
+  .item{display:block;border-radius:1.5mm;padding:1.4mm 2mm;font-size:7.4pt;line-height:1.3;flex:none}
+  .item .kind,.item .flagtxt{display:none}
+  .item .sub{display:block;font-size:9pt;margin-bottom:.4mm}
+  .item .meta{display:block}
+  .item .meta.with{display:none}
+  .item.lec{color:#fff!important;background:var(--c)}
+  .item.lec .sub::after{content:"  محاضرة";font-weight:400;font-size:7pt;opacity:.9}
+  .item.sec{border:1pt solid var(--c);border-inline-start:3.5pt solid var(--c);background:#fff;color:var(--ink)}
+  .item.sec .sub{color:var(--c)}
+  .item.sec .sub::after{content:"  سكشن";font-weight:400;font-size:7pt;color:var(--muted)}
+  .item.bad{outline:1.2pt solid var(--warn);outline-offset:.6pt}
+  .item.bad .sub::before{content:"⚠ ";color:var(--warn)}
+
+  .legend{margin-top:2.5mm;gap:5mm;font-size:8pt}
+  .sw{width:3mm;height:3mm}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>جدول السكاشن – المستوى الثاني</h1>
+    <p>كلية الحاسبات والذكاء الاصطناعي، جامعة المنيا الأهلية · الفصل الدراسي الأول 2026/2027 · إعداد <span class="byline">Youssef Jo</span></p>
+  </header>
+
+  <nav class="picker" id="picker" aria-label="اختار السكشن"></nav>
+
+  <main id="view"></main>
+
+  <div class="legend">
+    <span><i class="sw" style="background:var(--db)"></i>Database</span>
+    <span><i class="sw" style="background:var(--cn)"></i>Computer Network</span>
+    <span><i class="sw" style="background:var(--oop)"></i>OOP</span>
+    <span><i class="sw" style="background:var(--os)"></i>Operating System</span>
+    <span><i class="sw" style="background:var(--prog)"></i>Programming (2)</span>
+    <span><i class="sw" style="background:var(--ds)"></i>Discrete Structure</span>
+    <span><i class="sw" style="background:var(--muted)"></i>محاضرة (ملونة بالكامل)</span>
+    <span><i class="sw o"></i>سكشن (إطار ملون)</span>
+  </div>
+
+  <footer class="credit">
+    <p>إعداد: <b>Youssef Jo</b></p>
+    <p class="small">الجدول مأخوذ من النسخة الرسمية V4 (15/09/2026). لو فيه اختلاف، الجدول الرسمي هو المرجع.</p>
+  </footer>
+</div>
+
+<script>
+const DAYS=["السبت","الأحد","الاثنين","الثلاثاء","الأربعاء"];
+const SLOTS=["09-11","11-01","01-03","03-05"];
+const GROUPS={1:[1,2,3,4,5],2:[6,7,8,9,10],3:[11,12,13,14],4:[15,16,17,18]};
+const SUBJ={
+  DB:{n:"Database Management",c:"--db"}, CN:{n:"Computer Network",c:"--cn"},
+  OOP:{n:"OOP",c:"--oop"}, OS:{n:"Operating System",c:"--os"},
+  PROG:{n:"Programming (2)",c:"--prog"}, DS:{n:"Discrete Structure",c:"--ds"}
+};
+const DUP9="مكرر: سكشن 9 واخد OOP يوم الأحد كمان. غالبًا المقصود سكشن 8";
+const S02="قاعة S02 عليها أكتر من حاجة في نفس الميعاد، اتأكد من المكان";
+const P="Prof. Abdelmgid Amin";
+
+// L = lecture (group), S = section (list of sections)
+const L=(d,s,g,sub,who,room,flag)=>({t:"lec",d,s,g,sub,who,room,flag});
+const S=(d,s,secs,sub,lab,who,room,flag)=>({t:"sec",d,s,secs,sub,lab,who,room,flag});
+
+const E=[
+// السبت
+S(0,0,[4,5],"DB","5,6","Hader, Abdelrahman"), S(0,1,[4,5],"CN","7,8","Shoruk, Rokia"),
+S(0,0,[9,10],"CN","7,8","Shoruk, Rokia"), S(0,1,[9,10],"DB","5,6","Abdelrahman, Hader"),
+S(0,2,[13,14],"DB","5,6","Hader, Abdelrahman"), S(0,3,[13,14],"CN","7,8","Shoruk, Rokia"),
+S(0,2,[17,18],"CN","7,8","Shoruk, Rokia"), S(0,3,[17,18],"DB","5,6","Hader, Abdelrahman"),
+// الأحد
+S(1,0,[1,2,3],"OOP","B1,2,3","Zinab, Loay, Amira"), L(1,1,1,"DB","Dr Sara","Building F (S-01)"),
+S(1,2,[4,5],"OOP","1,2","Zinab, Loay"), S(1,2,[1,2,3],"CN","6,7,8","Yehia, Shoruk, Rokia"),
+L(1,3,1,"CN","Dr Enas","T-02"),
+L(1,0,2,"OOP",P,"S-02"), S(1,1,[6,7],"CN","5,6","Yehia, Shoruk"), L(1,2,2,"CN","Dr Enas","T-02"),
+S(1,3,[6,7,9],"OOP","1,2,3","Zinab, Loay, Amira"), S(1,3,[8],"CN","6","Rokia"),
+S(1,0,[11,12],"CN","5,6","Yehia, Shoruk"), S(1,1,[11,12,13],"OOP","B1,2,3","Zinab, Loay, Amira"), L(1,2,3,"OOP",P,"S-02"),
+L(1,0,4,"DB","Dr Sara","Building F (S-01)"), L(1,1,4,"OOP",P,"S-02"),
+S(1,2,[15],"OOP","3","Amira"), S(1,3,[15,16],"CN","7,8","Yehia, Shoruk"),
+// الاثنين
+L(2,0,1,"PROG","Dr Fatima Azzam","Building G (T-02)"), L(2,1,1,"OOP",P,"S-02"),
+S(2,2,[1,2,3],"OS","3,4,5","Hader, Hassam, Manar"),
+S(2,0,[8,9,10],"OS","3,4,5","Hader, Hassam, Manar"), L(2,1,2,"PROG","Dr Fatima Azzam","Building G (T-02)"),
+S(2,2,[10],"OOP","7","Mahmoud Khalaf"), S(2,3,[9],"OOP","7","Mahmoud Khalaf",null,DUP9),
+S(2,0,[14],"PROG","8","Loay"), S(2,1,[11,12,13],"OS","3,4,5","Hader, Hassam, Manar"),
+S(2,1,[14],"OOP","9","Shahd"), S(2,2,[11,12],"PROG","8,9","Loay, Shahd"),
+L(2,3,3,"OS","Dr Ali Ali","Building F (S-02)"),
+S(2,0,[17,18],"OOP","7,9","Mahmoud Khalaf, Shahd"), S(2,1,[16],"OOP","7","Mahmoud Khalaf"),
+S(2,1,[17],"PROG","8","Loay"), L(2,2,4,"OS","Dr Ali Ali","Building F (S-02)"),
+S(2,3,[16,17],"OS","3,4,5","Hader, Hassam"), S(2,3,[15],"PROG","8","Loay"),
+// الثلاثاء
+L(3,0,1,"DS","Dr. Rehab Emad","Building F (S-02)"),
+S(3,1,[1,2,3],"DB","3,4,5","Zinab, Hassan, Manar"), S(3,1,[4,5],"PROG","8,9","Yehia, Amira"),
+S(3,2,[4,5],"DS",null,null,"غير محددة"), S(3,2,[1,2,3],"PROG","8,9,10","Yehia, Amira, Abdelrahman"),
+S(3,0,[6,7,8],"DB","3,4,5","Zinab, Hassan, Manar"), S(3,0,[9,10],"PROG","8,9","Yehia, Amira"),
+L(3,1,2,"DS","Dr. Rehab Emad","Building F (S-02)"), L(3,2,2,"DB","Dr Sara","Building G (S-01)"),
+S(3,3,[6,7],"DS",null,null,"غير محددة"), S(3,3,[6,7,8],"PROG","8,9,10","Yehia, Amira, Abdelrahman"),
+S(3,0,[11,12],"DS",null,null,"غير محددة"), S(3,0,[13,16],"PROG","10, 1","Abdelrahman, Shahd"),
+L(3,1,3,"DB","Dr Sara","Building G (S-01)"), L(3,2,3,"PROG","Dr Asmaa","Building G (T-02)"),
+S(3,3,[11,12],"DB","3,4","Zinab, Hassan"),
+S(3,1,[18],"PROG","10","Abdelrahman"), S(3,1,[15,16],"DS",null,null,"غير محددة"),
+S(3,2,[15,16],"DB","3,4","Zinab, Hassan"), S(3,2,[18],"OS","5","Manar"),
+L(3,3,4,"PROG","Dr Asmaa","Building G (T-02)"),
+// الأربعاء
+S(4,0,[1,2],"DS",null,null,"S02"), S(4,0,[4],"OS","7","Hassan"),
+L(4,1,1,"OS","Dr Ali Ali","Building F (S-02)", S02),
+S(4,2,[5],"OS","12","Hassan"), S(4,2,[3],"DS",null,null,"S02",S02),
+S(4,1,[6],"OS","7","Hassan"), S(4,1,[8,9,10],"DS",null,null,"S02",S02),
+L(4,2,2,"OS","Dr Ali Ali","Building F (S-02)", S02), S(4,3,[7],"OS","7","Hassan"),
+L(4,0,3,"CN","Dr Enas","Building G (S-01)"), L(4,1,3,"DS","Dr. Rehab Emad","Building F (T-02)"),
+S(4,2,[14],"OS","7","Manar"), S(4,3,[13,14],"DS",null,null,"S02"),
+L(4,0,4,"DS","Dr. Rehab Emad","Building F (T-02)"), L(4,1,4,"CN","Dr Enas","Building G (S-01)"),
+S(4,2,[17,18],"DS",null,null,"S02",S02), S(4,3,[15],"OS","12","Manar"),
+];
+
+const groupOf=sec=>+Object.keys(GROUPS).find(g=>GROUPS[g].includes(sec));
+const forSec=sec=>E.filter(e=>e.t==="lec"?e.g===groupOf(sec):e.secs.includes(sec));
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function itemHTML(e){
+  const s=SUBJ[e.sub];
+  const lines=[];
+  if(e.t==="lec"){lines.push(e.who); lines.push(e.room);}
+  else{
+    if(e.lab) lines.push("Lab "+e.lab);
+    if(e.room) lines.push(e.room==="غير محددة"?"القاعة: غير محددة":"Room "+e.room);
+    if(e.who) lines.push(e.who); else lines.push("المعيد: غير محدد");
+    if(e.secs.length>1) lines.push("مع سكاشن: "+e.secs.join("، "));
+  }
+  return `<div class="item ${e.t}${e.flag?" bad":""}" style="--c:var(${s.c})">
+    <span class="kind">${e.t==="lec"?"محاضرة":"سكشن"}</span>
+    <span class="sub">${esc(s.n)}</span>
+    ${lines.map(l=>`<span class="meta${l.startsWith("مع سكاشن")?" with":""}"${/[\u0600-\u06FF]/.test(l)?' style="direction:rtl"':''}>${esc(l)}</span>`).join("")}
+    ${e.flag?`<span class="flagtxt">⚠ ${esc(e.flag)}</span>`:""}
+  </div>`;
+}
+
+function render(sec){
+  const items=forSec(sec), g=groupOf(sec);
+  const at=(d,s)=>items.filter(e=>e.d===d&&e.s===s);
+  const lec=items.filter(e=>e.t==="lec").length, secs=items.filter(e=>e.t==="sec").length;
+  const notes=[];
+  for(let d=0;d<5;d++)for(let s=0;s<4;s++) if(at(d,s).length>1) notes.push(`تضارب: عندك ${at(d,s).length} حاجات يوم ${DAYS[d]} ${SLOTS[s]}`);
+  if(sec===8) notes.push("سكشن 8 مالوش سكشن OOP في الجدول خالص. غالبًا سكشن OOP يوم الاثنين 03-05 (Lab 7، Mahmoud Khalaf) هو بتاعك، ومكتوب بالغلط sec (9).");
+  if(sec===9) notes.push("سكشن OOP بتاعك متكرر (الأحد 03-05 والاثنين 03-05). غالبًا بتاع الاثنين هو لسكشن 8، اتأكد من الإدارة.");
+  if(items.some(e=>e.flag===S02)) notes.push("يوم الأربعاء فيه أكتر من محاضرة/سكشن على قاعة S02 في نفس الوقت. اتأكد من القاعة قبل ما تروح.");
+
+  let rows="";
+  DAYS.forEach((dn,d)=>{
+    rows+=`<tr><th class="day" scope="row">${dn}</th>`;
+    SLOTS.forEach((_,s)=>{
+      const c=at(d,s);
+      rows+=`<td>${c.length?`<div class="cell">${c.map(itemHTML).join("")}</div>`:`<div class="empty" aria-label="فاضي"></div>`}</td>`;
+    });
+    rows+="</tr>";
+  });
+
+  let list="";
+  DAYS.forEach((dn,d)=>{
+    const has=SLOTS.map((t,s)=>({t,c:at(d,s)})).filter(x=>x.c.length);
+    list+=`<section class="dayblk"><h3>${dn}</h3>${has.length?has.map(x=>`<div class="row"><div class="time">${x.t}</div><div class="cell">${x.c.map(itemHTML).join("")}</div></div>`).join(""):`<div class="off">يوم فاضي</div>`}</section>`;
+  });
+
+  document.getElementById("view").outerHTML=`<main id="view">
+    <div class="print-head">
+      <div class="sec"><span class="n">${sec}</span><span class="l">سكشن<b>مجموعة م${g}</b></span></div>
+      <div class="ttl"><h2>جدول المحاضرات والسكاشن – المستوى الثاني</h2>
+        <p>كلية الحاسبات والذكاء الاصطناعي، جامعة المنيا الأهلية · الفصل الأول 2026/2027 · ${lec} محاضرات و ${secs} سكاشن</p></div>
+      <div class="by">إعداد<b>Youssef Jo</b></div>
+    </div>
+    <div class="head">
+      <div>
+        <div class="bigsec"><span class="n">${sec}</span><span class="t">سكشن<b>مجموعة م${g}</b></span></div>
+        <div class="stats">${lec} محاضرات · ${secs} سكاشن · إعداد <span class="byline">Youssef Jo</span></div>
+      </div>
+      <div class="actions"><button class="btn" id="saveImg">احفظ صورة</button><button class="btn" id="printBtn">اطبع</button></div>
+    </div>
+    ${notes.length?`<ul class="notes">${notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}
+    <div class="tt-scroll"><table class="tt">
+      <thead><tr><th>اليوم</th>${SLOTS.map(t=>`<th scope="col">${t}</th>`).join("")}</tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <div class="list">${list}</div>
+  </main>`;
+
+  document.querySelectorAll(".num").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.sec===sec?"true":"false"));
+  document.title=`سكشن ${sec} – جدول المستوى الثاني | Youssef Jo`;
+  try{localStorage.setItem("sec",sec)}catch(e){}
+  if(location.hash!=="#"+sec) history.replaceState(null,"","#"+sec);
+}
+
+// actions
+document.addEventListener("click",async ev=>{
+  if(ev.target.id==="printBtn"){ window.print(); }
+  if(ev.target.id==="saveImg"){
+    const b=ev.target, sec=document.querySelector('.num[aria-pressed="true"]')?.dataset.sec||"";
+    b.disabled=true; b.textContent="جاري الحفظ…";
+    try{
+      const node=document.getElementById("view");
+      const bg=getComputedStyle(document.body).backgroundColor;
+      const url=await htmlToImage.toPng(node,{pixelRatio:2,backgroundColor:bg,
+        filter:n=>!(n.classList&&n.classList.contains("actions"))});
+      const a=document.createElement("a");
+      a.href=url; a.download=`جدول-سكشن-${sec}.png`; document.body.appendChild(a); a.click(); a.remove();
+    }catch(e){ alert("مقدرتش أحفظ الصورة. جرب زرار اطبع واختار حفظ كـ PDF."); }
+    b.disabled=false; b.textContent="احفظ صورة";
+  }
+});
+
+// picker
+const flagged=new Set([8,9]);
+E.forEach(e=>{if(e.flag&&e.t==="sec")e.secs.forEach(x=>flagged.add(x)); if(e.flag&&e.t==="lec")GROUPS[e.g].forEach(x=>flagged.add(x));});
+document.getElementById("picker").innerHTML=Object.entries(GROUPS).map(([g,list])=>
+  `<div class="grp"><h2>مجموعة م${g}</h2><div class="nums">${list.map(n=>
+    `<button class="num${flagged.has(n)?" flag":""}" data-sec="${n}" aria-pressed="false" aria-label="سكشن ${n}${flagged.has(n)?"، فيه ملاحظة":""}">${n}</button>`).join("")}</div></div>`).join("");
+document.getElementById("picker").addEventListener("click",ev=>{
+  const b=ev.target.closest(".num"); if(b) render(+b.dataset.sec);
+});
+
+let start=parseInt(location.hash.slice(1));
+if(!(start>=1&&start<=18)){ try{start=parseInt(localStorage.getItem("sec"))}catch(e){} }
+if(!(start>=1&&start<=18)) start=1;
+render(start);
+</script>
+</body>
+</html>

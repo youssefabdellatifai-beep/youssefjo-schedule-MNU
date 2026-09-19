@@ -230,13 +230,16 @@ const S=(d,s,secs,sub,lab,who,room,flag)=>({t:"sec",d,s,secs,sub,lab,who,room,fl
 const P="Prof. Abdelmgid Amin";
 
 /* ---------------- المستوى الثاني ---------------- */
-const DUP9="مكرر: سكشن 9 واخد OOP يوم الأحد كمان. غالبًا المقصود سكشن 8";
 const S02="قاعة S02 عليها أكتر من حاجة في نفس الميعاد، اتأكد من المكان";
-const XDB="نفس القاعة عليها محاضرة Math (1) للمستوى الأول في نفس الميعاد";
-const XPR="نفس القاعة عليها محاضرة IT Fundamentals للمستوى الأول في نفس الميعاد، وبنفس اسم الدكتورة";
+const S02M="القاعة مكتوبة (S-02) من غير مبنى، ولو هي F (S-02) يبقى عليها محاضرة English (1) للمستوى الأول في نفس الميعاد";
+const XIR="نفس القاعة عليها محاضرة Information Retrieval للمستوى الثالث في نفس الميعاد";
+const XDM="نفس القاعة عليها محاضرة Data Mining للمستوى الثالث في نفس الميعاد";
+const XB2="Lab B2 عليه سكشن Computational Perception للمستوى الرابع في نفس الميعاد";
+const XG1="Lab 1 عليه سكشن Deep Learning للمستوى الرابع في نفس الميعاد";
+const XL12="Lab 12 عليه سكشن Data Mining للمستوى الثالث في نفس الميعاد";
 const L2={
   key:"L2", name:"المستوى الثاني", short:"الثاني",
-  source:"النسخة الرسمية V4 (15/09/2026)",
+  source:"النسخة المعدّلة من الجدول الرسمي (15/09/2026)",
   groups:{1:[1,2,3,4,5],2:[6,7,8,9,10],3:[11,12,13,14],4:[15,16,17,18]},
   subj:{
     DB:{n:"Database Management",c:"--db"}, CN:{n:"Computer Network",c:"--cn"},
@@ -244,55 +247,72 @@ const L2={
     PROG:{n:"Programming (2)",c:"--prog"}, DS:{n:"Discrete Structure",c:"--ds"}
   },
   hasStaff:true,
-  secNotes:{
-    8:"سكشن 8 مالوش سكشن OOP في الجدول خالص. غالبًا سكشن OOP يوم الاثنين 03-05 (Lab 7، Mahmoud Khalaf) هو بتاعك، ومكتوب بالغلط sec (9).",
-    9:"سكشن OOP بتاعك متكرر (الأحد 03-05 والاثنين 03-05). غالبًا بتاع الاثنين هو لسكشن 8، اتأكد من الإدارة."
-  },
+  secNotes:{},
   groupNotes:{},
-  footnote:"",
+  footnote:"سكاشن Discrete Structure يوم الثلاثاء مكتوبة من غير قاعة ولا اسم معيد في الجدول الأصلي.",
   E:[
-S(0,0,[4,5],"DB","5,6","Hader, Abdelrahman"), S(0,1,[4,5],"CN","7,8","Shoruk, Rokia"),
+// السبت
+S(0,1,[4,5],"CN","7,8","Shoruk, Rokia"), S(0,3,[4,5],"DB","5,6","Hader, Abdelrahman"),
 S(0,0,[9,10],"CN","7,8","Shoruk, Rokia"), S(0,1,[9,10],"DB","5,6","Abdelrahman, Hader"),
-S(0,2,[13,14],"DB","5,6","Hader, Abdelrahman"), S(0,3,[13,14],"CN","7,8","Shoruk, Rokia"),
-S(0,2,[17,18],"CN","7,8","Shoruk, Rokia"), S(0,3,[17,18],"DB","5,6","Hader, Abdelrahman"),
-S(1,0,[1,2,3],"OOP","B1,2,3","Zinab, Loay, Amira",null,"Lab B2 عليه سكشن Computational Perception للمستوى الرابع في نفس الميعاد"), L(1,1,1,"DB","Dr Sara","Building F (S-01)",XDB),
-S(1,2,[4,5],"OOP","1,2","Zinab, Loay",null,"Lab 1 عليه سكشن Deep Learning للمستوى الرابع في نفس الميعاد"), S(1,2,[1,2,3],"CN","6,7,8","Yehia, Shoruk, Rokia"),
-L(1,3,1,"CN","Dr Enas","T-02"),
-L(1,0,2,"OOP",P,"S-02"), S(1,1,[6,7],"CN","5,6","Yehia, Shoruk",null,"Lab 5 عليه سكشن Information Retrieval للمستوى الثالث في نفس الميعاد"), L(1,2,2,"CN","Dr Enas","T-02"),
-S(1,3,[6,7,9],"OOP","1,2,3","Zinab, Loay, Amira",null,"Lab 1 عليه سكشن Deep Learning للمستوى الرابع في نفس الميعاد"), S(1,3,[8],"CN","6","Rokia"),
-S(1,0,[11,12],"CN","5,6","Yehia, Shoruk",null,"Lab 5 عليه سكشن Information Retrieval للمستوى الثالث في نفس الميعاد"), S(1,1,[11,12,13],"OOP","B1,2,3","Zinab, Loay, Amira",null,"Lab B2 عليه سكشن Computational Perception للمستوى الرابع في نفس الميعاد"), L(1,2,3,"OOP",P,"S-02"),
-L(1,0,4,"DB","Dr Sara","Building F (S-01)",XDB), L(1,1,4,"OOP",P,"S-02"),
+L(0,2,2,"CN","Dr Enas","Building G (S-01)"),
+L(0,0,3,"PROG","Dr Asmaa","Building F (S-01)"),
+S(0,2,[13,14],"DB","5,6","Hader, Abdelrahman"), S(0,3,[14],"CN","7","Shoruk"),
+S(0,0,[17,18],"DB","5,6","Hader, Abdelrahman"),
+L(0,1,4,"PROG","Dr Asmaa","Building F (S-01)"),
+S(0,2,[17,18],"CN","7,8","Shoruk, Rokia"),
+L(0,3,4,"CN","Dr Enas","Building G (S-01)"),
+// الأحد
+S(1,0,[1,2,3],"OOP","B1,2,3","Zinab, Loay, Amira",null,XB2),
+L(1,1,1,"DB","Dr Sara","Building G (S-01)",XIR),
+S(1,2,[4,5],"OOP","1,2","Zinab, Loay",null,XG1),
+S(1,2,[1,2,3],"CN","6,7,8","Yehia, Shoruk, Rokia"),
+L(1,3,1,"CN","Dr Enas","G (T-01)"),
+L(1,0,2,"OOP",P,"S-02"),
+S(1,1,[6,7,8],"CN","6,7,8","Yehia, Shoruk"),
+S(1,3,[6,7,9],"OOP","1,2,3","Zinab, Loay, Amira",null,XG1),
+S(1,0,[11,12,13],"CN","6,7,8","Yehia, Shoruk, Rokia"),
+S(1,1,[11,12,13],"OOP","B1,2,3","Zinab, Loay, Amira",null,XB2),
+L(1,2,3,"OOP",P,"S-02"),
+L(1,0,4,"DB","Dr Sara","Building G (S-01)",XIR),
+L(1,1,4,"OOP",P,"S-02"),
 S(1,2,[15],"OOP","3","Amira"), S(1,3,[15,16],"CN","7,8","Yehia, Shoruk"),
-L(2,0,1,"PROG","Dr Fatima Azzam","Building G (T-02)"), L(2,1,1,"OOP",P,"S-02"),
+// الاثنين
+L(2,0,1,"PROG","Dr Fatima Azzam","Building G (T-02)"),
+L(2,1,1,"OOP",P,"S-02",S02M),
 S(2,2,[1,2,3],"OS","3,4,5","Hader, Hassam, Manar"),
-S(2,0,[8,9,10],"OS","3,4,5","Hader, Hassam, Manar"), L(2,1,2,"PROG","Dr Fatima Azzam","Building G (T-02)"),
-S(2,2,[10],"OOP","7","Mahmoud Khalaf"), S(2,3,[9],"OOP","7","Mahmoud Khalaf",null,DUP9),
-S(2,0,[14],"PROG","8","Loay"), S(2,1,[11,12,13],"OS","3,4,5","Hader, Hassam, Manar"),
+S(2,0,[8,9,10],"OS","3,4,5","Hader, Hassam, Manar"),
+L(2,1,2,"PROG","Dr Fatima Azzam","Building G (T-02)"),
+S(2,2,[10],"OOP","7","Mahmoud Khalaf"), S(2,3,[8],"OOP","7","Mahmoud Khalaf"),
+S(2,0,[14],"PROG","8","Loay"),
+S(2,1,[11,12,13],"OS","3,4,5","Hader, Hassam, Manar"),
 S(2,1,[14],"OOP","9","Shahd"), S(2,2,[11,12],"PROG","8,9","Loay, Shahd"),
 L(2,3,3,"OS","Dr Ali Ali","Building F (S-02)"),
-S(2,0,[17,18],"OOP","7,9","Mahmoud Khalaf, Shahd"), S(2,1,[16],"OOP","7","Mahmoud Khalaf"),
-S(2,1,[17],"PROG","8","Loay"), L(2,2,4,"OS","Dr Ali Ali","Building F (S-02)"),
+S(2,0,[17,18],"OOP","7,9","Mahmoud Khalaf, Shahd"),
+S(2,1,[16],"OOP","7","Mahmoud Khalaf"), S(2,1,[17],"PROG","8","Loay"),
+L(2,2,4,"OS","Dr Ali Ali","Building F (S-02)"),
 S(2,3,[16,17],"OS","3,4,5","Hader, Hassam"), S(2,3,[15],"PROG","8","Loay"),
+// الثلاثاء
 L(3,0,1,"DS","Dr. Rehab Emad","Building F (S-02)"),
 S(3,1,[1,2,3],"DB","3,4,5","Zinab, Hassan, Manar"), S(3,1,[4,5],"PROG","8,9","Yehia, Amira"),
 S(3,2,[4,5],"DS",null,null,"غير محددة"), S(3,2,[1,2,3],"PROG","8,9,10","Yehia, Amira, Abdelrahman"),
 S(3,0,[6,7,8],"DB","3,4,5","Zinab, Hassan, Manar"), S(3,0,[9,10],"PROG","8,9","Yehia, Amira"),
 L(3,1,2,"DS","Dr. Rehab Emad","Building F (S-02)"), L(3,2,2,"DB","Dr Sara","Building G (S-01)"),
-S(3,3,[6,7],"DS",null,null,"غير محددة"), S(3,3,[6,7,8],"PROG","8,9,10","Yehia, Amira, Abdelrahman"),
+S(3,3,[9,10],"DS",null,null,"غير محددة"), S(3,3,[6,7,8],"PROG","8,9,10","Yehia, Amira, Abdelrahman"),
 S(3,0,[11,12],"DS",null,null,"غير محددة"), S(3,0,[13,16],"PROG","10, 1","Abdelrahman, Shahd"),
-L(3,1,3,"DB","Dr Sara","Building G (S-01)"), L(3,2,3,"PROG","Dr Asmaa","Building G (T-02)",XPR),
-S(3,3,[11,12],"DB","3,4","Zinab, Hassan"),
+L(3,1,3,"DB","Dr Sara","Building G (S-01)"), S(3,3,[11,12],"DB","3,4","Zinab, Hassan"),
 S(3,1,[18],"PROG","10","Abdelrahman"), S(3,1,[15,16],"DS",null,null,"غير محددة"),
 S(3,2,[15,16],"DB","3,4","Zinab, Hassan"), S(3,2,[18],"OS","5","Manar"),
-L(3,3,4,"PROG","Dr Asmaa","Building G (T-02)"),
-S(4,0,[1,2],"DS",null,null,"S02"), S(4,0,[4],"OS","7","Hassan"),
-L(4,1,1,"OS","Dr Ali Ali","Building F (S-02)", S02),
-S(4,2,[5],"OS","12","Hassan",null,"Lab 12 عليه سكشن Data Mining للمستوى الثالث في نفس الميعاد"), S(4,2,[3],"DS",null,null,"S02",S02),
-S(4,1,[6],"OS","7","Hassan"), S(4,1,[8,9,10],"DS",null,null,"S02",S02),
-L(4,2,2,"OS","Dr Ali Ali","Building F (S-02)", S02), S(4,3,[7],"OS","7","Hassan"),
-L(4,0,3,"CN","Dr Enas","Building G (S-01)"), L(4,1,3,"DS","Dr. Rehab Emad","Building F (T-02)","نفس القاعة عليها محاضرة Data Mining للمستوى الثالث في نفس الميعاد"),
-S(4,2,[14],"OS","7","Manar"), S(4,3,[13,14],"DS",null,null,"S02"),
-L(4,0,4,"DS","Dr. Rehab Emad","Building F (T-02)","نفس القاعة عليها محاضرة Data Mining للمستوى الثالث في نفس الميعاد"), L(4,1,4,"CN","Dr Enas","Building G (S-01)","محاضرة Deep Learning للمستوى الرابع مكتوبة في S-01 (من غير مبنى) في نفس الميعاد"),
+// الأربعاء
+S(4,0,[1,2],"DS",null,null,"S02"), S(4,0,[4],"OS","12","Manar"),
+L(4,1,1,"OS","Dr Ali Ali","Building F (S-02)",S02),
+S(4,2,[5],"OS","12","Hassan",null,XL12), S(4,2,[3],"DS",null,null,"S02",S02),
+S(4,1,[6],"OS","12","Manar"), S(4,1,[7,8],"DS",null,null,"S02",S02),
+L(4,2,2,"OS","Dr Ali Ali","Building F (S-02)",S02),
+S(4,3,[7],"OS","7","Hassan"), S(4,3,[6],"DS",null,null,"S02",S02),
+L(4,0,3,"CN","Dr Enas","Building G (S-01)"),
+L(4,1,3,"DS","Dr. Rehab Emad","Building F (T-02)",XDM),
+S(4,2,[14],"OS","7","Manar"), S(4,3,[13,14],"DS",null,null,"S02",S02),
+L(4,0,4,"DS","Dr. Rehab Emad","Building F (T-02)",XDM),
 S(4,2,[17,18],"DS",null,null,"S02",S02), S(4,3,[15],"OS","12","Manar"),
   ]
 };
@@ -339,9 +359,9 @@ S(0,0,[12,13],"PHYS",PHL,null,null,CLASH12), S(0,0,[11,12,13],"ITF","1,2,3",null
 L(0,1,3,"ECON","Prof. Tarek Abd Elhafeez","Building G (T-01)","نفس القاعة عليها محاضرة Selected Topics AI (1) للمستوى الرابع في نفس الميعاد"),
 // الأحد
 S(1,0,[3],"PHYS",PHL), S(1,0,[1,2],"MATH1",null,null,"S-01",MS), S(1,0,[4,5],"MATH1",null,null,"S-03"),
-L(1,1,1,"MATH1","Prof. Huda Fraghal","Building F (S-01)",XM),
+L(1,1,1,"MATH1","Prof. Huda Fraghal","Building F (S-01)"),
 S(1,2,[3],"MATH1",null,null,"S-01",MS),
-L(1,0,2,"MATH1","Prof. Huda Fraghal","Building F (S-01)",XM),
+L(1,0,2,"MATH1","Prof. Huda Fraghal","Building F (S-01)"),
 L(1,1,2,"PHYS","Prof. Mohamed Abdelrahman","Building G (T-01)"),
 S(1,2,[7],"PHYS",PHL), S(1,2,[8,9],"MATH1",null,null,"S-03"), S(1,2,[6],"MATH1",null,null,"S-01",MS),
 S(1,3,[7,10],"MATH1",null,null,"S-01",MS), S(1,3,[6],"PHYS",PHL),
@@ -363,7 +383,7 @@ L(3,1,2,"MATH0","Dr. Heba Hamdy","Building F (S-01)"),
 S(3,2,[10],"ITF","1",null,null,LAB1),
 L(3,0,3,"ENG","Dr Enas Fathy","Building G (T-0?)","رقم القاعة ناقص في الجدول الأصلي (مكتوب T-0)"),
 S(3,1,[14],"ITF","12"),
-L(3,2,3,"ITF","Dr Asmaa Hammad","Building G (T-02)",XIT),
+L(3,2,3,"ITF","Dr Asmaa Hammad","Building G (T-02)"),
 S(3,3,[14],"PF","1"),
 // الأربعاء
 S(4,1,[1,2,3,4],"PF","2,3,4,8"),
@@ -414,13 +434,13 @@ S(0,0,[16],"ML","11"), S(0,1,[13,14],"IP","9,10","Amira, Loay"),
 L(0,2,3,"OR","Dr. Alaa Zaki",ZA),
 S(0,3,[13,14,15,16],"OR",null,"Sohair, Zinab","T01"),
 // الأحد
-S(1,1,[5,6],"IR","4,5",null,null,LB5),
+S(1,1,[5,6],"IR","4,5"),
 L(1,2,1,"IR","Dr Ebtsam",EB),
 S(1,3,[1,2,3,4],"IR","4,5,11,12"),
-S(1,0,[7,8,9,10],"IR","4,5,11,12",null,null,LB5),
-L(1,1,2,"IR","Dr Ebtsam",EB),
+S(1,0,[7,8,9,10],"IR","4,5,11,12"),
+L(1,1,2,"IR","Dr Ebtsam",EB,"نفس القاعة عليها محاضرة Database Management للمستوى الثاني في نفس الميعاد"),
 S(1,2,[11,12],"IR","4,5"),
-L(1,0,3,"IR","Dr Ebtsam",EB),
+L(1,0,3,"IR","Dr Ebtsam",EB,"نفس القاعة عليها محاضرة Database Management للمستوى الثاني في نفس الميعاد"),
 S(1,1,[13,14],"IR","11,12"), S(1,2,[15,16],"IR","11,12"),
 // الاثنين
 L(2,0,1,"ML","Dr. Marwa Mamdouh","T-01",MLR),
@@ -523,7 +543,7 @@ S(4,1,[6,7],"DL","1,5","Sohair, Hader"),
 L(4,2,2,"DL",BH,"S-01"),
 S(4,3,[9,10],"DL","1,5","Sohair, Hader"), S(4,3,[6,7],"CP","9,10",null,null,X4LB), S(4,3,[8],"PR","6"),
 S(4,0,[11,12],"DL","1,5","Sohair, Hader"),
-L(4,1,3,"DL",BH,"S-01",X4S1),
+L(4,1,3,"DL",BH,"S-01"),
 S(4,2,[11,12],"CP","9,10"),
   ]
 };
